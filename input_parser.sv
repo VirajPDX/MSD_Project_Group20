@@ -14,26 +14,25 @@
 
 module input_parser(
 
-input logic en 
+#(
+parameter IN_TRACE = 16
+)
+(input logic en ,
+output logic [32:0] time_in [IN_TRACE-1:0],
+output logic [32:0] op[IN_TRACE-1:0],
+output logic [32:0]addr [IN_TRACE-1:0]
 
 );
 
-parameter IN_TRACE = 8;
-
-logic [31:0] time_in [IN_TRACE-1:0];
-logic [31:0] op[IN_TRACE-1:0];
-logic [31:0]addr [IN_TRACE-1:0];
+logic [32:0] time_in_s;
+logic [32:0] op_s;
+logic [32:0]addr_s;
 
 
 integer file,c,count;
-logic [31:0] time_in_s;
-logic [31:0] op_s;
-logic [31:0]addr_s;
 
 
-
-
-always@(en) begin
+always_comb begin
 
 if (en == 1 )begin
 count = 0 ;
@@ -57,12 +56,6 @@ end
 else begin 
 
 $display("time:%4d   Enable is OFF ......///////////////////////////",$time);
-for (int i=0; i<=IN_TRACE; i++)
-  begin 
-time_in [i] <= 'z;
-op [i] <= 'z;
-addr [i] <= 'z;
-end
 
 end 
 
