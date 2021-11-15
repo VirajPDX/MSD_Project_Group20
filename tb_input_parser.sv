@@ -3,35 +3,28 @@ module tb_input_parser();
 
 logic en;
 
-input_parser p1(
+logic clk ;
 
-.en(en)
-
+queue q1(
+.en(en) ,
+.clk(clk)
 );
-
 
 initial begin 
 
+en = 0;
+#1;
 en = 1 ;
-
-#20 
-
+#1;
 en = 0;
 
-#40;
+end
 
 
-en = 1;
-#20 
+initial begin
+clk = 1;
 
-en = 0;
-
-#40;
-
-
-en = 1;
-
+forever #5 clk = ~clk;
 end 
-
 
 endmodule
