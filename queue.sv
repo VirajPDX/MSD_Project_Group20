@@ -1,30 +1,36 @@
+///////////////////////////////////////////////////////////////////////////////////////////
+// queue.sv - Initializing queue and removing last element from the queue
+// Author - Group 20 (tanvi@pdx.edu)
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
 module queue
 
- #(
+#(
 parameter IN_TRACE = 16
 )
 
+// initialization of inputs
+	
 (
-
-input wire [32:0] time_op_s [15:0],
-input wire [32:0] opcode_s[15:0],
-input wire [32:0] row_col_bank_s[15:0]
-
+input wire [31:0] time_op_s [15:0],
+input wire [31:0] opcode_s[15:0],
+input wire [31:0] row_col_bank_s[15:0]
 );
 
 logic en_1, clk;
 logic [3:0] clk_ct;
 
 
-// instantiation of input parser 
-
+// module instantiation 
 
 input parser p1 (
+	
 .en (en_1),
 .time_in (time_op_s),
 .op(opcode_s),
 .addr(row_col_bank_s)
-
+	
 );
 
 
@@ -33,11 +39,11 @@ input parser p1 (
 typedef struct packed 
 
 {
-
+	
 bit [31:0] time_op;
 bit [31:0] opcode;
 bit [31:0] row_col_bank;
-
+	
 } queue_mem_element;
 
 
@@ -46,7 +52,7 @@ bit [31:0] row_col_bank;
 queue mem_element queue_mem [$:16];
 
 initial begin 
-
+	
 @(posedge clk) begin 
 
 	for (int i=0; i<16; i++) begin
@@ -55,11 +61,13 @@ initial begin
 		queue_mem[i].opcode = opcode_s[i];
 		queue_mem[i].row_col_bank = row_bank_bank_s[i];
 
-				end
+				 end
 		end
 end
 
 
+// making enable 0 and 1 to test 
+	
 initial begin
 
 en_1 = 0;
@@ -102,10 +110,10 @@ end
 always @(posedge clk)begin
 
 	if (clk_ct == 10) begin
-
+		
 		queue_mem.delete(0);
 
-			end
+			 end
 
 end
 
@@ -121,10 +129,9 @@ $write ("Queue contains:  \n");
 
 	for (int i=0; i<16; i++) begin
 
-		$write("queue %2d: %4d %4d %9h \n" , i, queue_mem[i].time_op, 					queue_mem[i].opcode, queue_mem[i].row_col_bank);
+		$write("queue %2d: %4d %4d %9h \n" , i, queue_mem[i].time_op, queue_mem[i].opcode, queue_mem[i].row_col_bank);
 
-					end
-
+				end
 		$write ("\n");
 
 endtask
