@@ -1,8 +1,0 @@
-C:/Users/ER/OneDrive/Documents/PSU/MSD/Project/tb_input_parser.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/ER/OneDrive/Documents/PSU/MSD/Project/tb_input_parser.sv
-QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
--- Compiling module tb_input_parser
-
-Top level modules:
-	tb_input_parser
-
-} {} {}}
