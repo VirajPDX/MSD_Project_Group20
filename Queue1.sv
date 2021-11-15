@@ -3,10 +3,10 @@
 //
 // Author:	       GROUP  (dkamath@pdx.edu)
 // Version:        	 1.0
-// Last Modified:	15-NOV-2021
 //
 //
-///////////////////////////////////////////////////////////////////////////////////////////module queue
+///////////////////////////////////////////////////////////////////////////////////////////
+module queue
 
 #(
 parameter IN_TRACE = 16
@@ -14,9 +14,9 @@ parameter IN_TRACE = 16
 //parameter declaration
 (
 
-  input wire [32:0] time_op_s [15:0],
-  input wire [32:0] opcode_s[15:0],
-  input wire [32:0] row_col_bank_s[15:0]
+     input wire [31:0] time_op_s [15:0],
+     input wire [31:0] opcode_s[15:0],
+     input wire [31:0] row_col_bank_s[15:0]
 
 );
 
@@ -33,16 +33,16 @@ parameter IN_TRACE = 16
 
      typedef struct packed
  {
-     bit [32:0] time_op ;
-     bit [32:0] opcode;
-     bit [32:0] row_col_bank;
+	bit [31:0] time_op ;
+	bit [31:0] opcode;
+	bit [31:0] row_col_bank;
 
-}queue_mem_element ;
+ }   queue_mem_element ;
 
-    queue_mem_element  queue_mem ;
+     queue_mem_element  queue_mem ;
 
 
-    logic [98:0] queue [$:15]; //*******
+     logic [98:0] queue [$:15];
 
 
 
@@ -61,7 +61,8 @@ parameter IN_TRACE = 16
 
 
          end 
-    end
+     end
+	
         queue[i] = {queue_mem.time_op,queue_mem.opcode,queue_mem.row_col_bank};
         $display ("queue : %p",queue_mem) ;
         //$display (" queue %2d: %b",i,queue [i]);
@@ -79,10 +80,10 @@ parameter IN_TRACE = 16
            end 
  
     endmodule
-    always@(posedge clk) 
+    /*always@(posedge clk) 
 	begin 
 
-    /*for (int i = 0 ; i < count; i++ )
+    for (int i = 0 ; i < count; i++ )
      	begin 
 
          queue_mem_reg[i].time_op = time_in[i];
